@@ -1,0 +1,46 @@
+vbelchenko@MacBookAir Task2 % kubectl get hpa -w
+NAME               REFERENCE                 TARGETS           MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-hpa   Deployment/scaletestapp   memory: 58%/80%   1         10        2          3h37m
+
+^C%                                                                                            
+vbelchenko@MacBookAir Task2 % kubectl get hpa -w
+NAME               REFERENCE                 TARGETS           MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-hpa   Deployment/scaletestapp   memory: 58%/80%   1         10        2          3h37m
+scaletestapp-hpa   Deployment/scaletestapp   memory: 58%/80%   1         10        2          3h38m
+scaletestapp-hpa   Deployment/scaletestapp   memory: 58%/80%   1         10        2          3h39m
+scaletestapp-hpa   Deployment/scaletestapp   memory: 58%/80%   1         10        2          3h40m
+scaletestapp-hpa   Deployment/scaletestapp   memory: 58%/80%   1         10        2          3h41m
+scaletestapp-hpa   Deployment/scaletestapp   memory: 36%/80%   1         10        2          3h42m
+
+
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  15m   default-scheduler  Successfully assigned default/scaletestapp-54bcdd9c99-9dtmj to minikube
+  Normal  Pulling    15m   kubelet            Pulling image "shestera/scaletestapp:latest"
+  Normal  Pulled     15m   kubelet            Successfully pulled image "shestera/scaletestapp:latest" in 1.351s (1.351s including waiting). Image size: 10412737 bytes.
+  Normal  Created    15m   kubelet            Created container: scaletestapp
+  Normal  Started    15m   kubelet            Started container scaletestapp
+vbelchenko@MacBookAir Task2 
+
+
+
+vbelchenko@MacBookAir Task2 % kubectl get events
+LAST SEEN   TYPE     REASON              OBJECT                                     MESSAGE
+16m         Normal   Scheduled           pod/scaletestapp-54bcdd9c99-9dtmj          Successfully assigned default/scaletestapp-54bcdd9c99-9dtmj to minikube
+16m         Normal   Pulling             pod/scaletestapp-54bcdd9c99-9dtmj          Pulling image "shestera/scaletestapp:latest"
+16m         Normal   Pulled              pod/scaletestapp-54bcdd9c99-9dtmj          Successfully pulled image "shestera/scaletestapp:latest" in 1.351s (1.351s including waiting). Image size: 10412737 bytes.
+16m         Normal   Created             pod/scaletestapp-54bcdd9c99-9dtmj          Created container: scaletestapp
+16m         Normal   Started             pod/scaletestapp-54bcdd9c99-9dtmj          Started container scaletestapp
+9m59s       Normal   Pulling             pod/scaletestapp-54bcdd9c99-hn6hs          Pulling image "shestera/scaletestapp:latest"
+9m57s       Normal   Created             pod/scaletestapp-54bcdd9c99-hn6hs          Created container: scaletestapp
+9m57s       Normal   Started             pod/scaletestapp-54bcdd9c99-hn6hs          Started container scaletestapp
+9m57s       Normal   Pulled              pod/scaletestapp-54bcdd9c99-hn6hs          Successfully pulled image "shestera/scaletestapp:latest" in 1.373s (1.373s including waiting). Image size: 10412737 bytes.
+4m35s       Normal   Killing             pod/scaletestapp-54bcdd9c99-hn6hs          Stopping container scaletestapp
+16m         Normal   SuccessfulCreate    replicaset/scaletestapp-54bcdd9c99         Created pod: scaletestapp-54bcdd9c99-9dtmj
+4m35s       Normal   SuccessfulDelete    replicaset/scaletestapp-54bcdd9c99         Deleted pod: scaletestapp-54bcdd9c99-hn6hs
+16m         Normal   SuccessfulRescale   horizontalpodautoscaler/scaletestapp-hpa   New size: 2; reason: memory resource utilization (percentage of request) above target
+4m35s       Normal   SuccessfulRescale   horizontalpodautoscaler/scaletestapp-hpa   New size: 1; reason: All metrics below target
+16m         Normal   ScalingReplicaSet   deployment/scaletestapp                    Scaled up replica set scaletestapp-54bcdd9c99 from 1 to 2
+4m35s       Normal   ScalingReplicaSet   deployment/scaletestapp                    Scaled down replica set scaletestapp-54bcdd9c99 from 2 to 1
+vbelchenko@MacBookAir Task2 % 
